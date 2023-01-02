@@ -1,0 +1,32 @@
+
+.title{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 25px;
+line-height: 25px;
+color: #432A19;
+
+}
+
+.bg-title{
+
+background: #FFD63A;
+}
+
+.input-condition{
+    width: 140px;
+height: 18px;
+left: 28px;
+top: 170px;
+
+background: #FFFFFF;
+border: 0.5px solid #535353;
+
+}
+
+.btn-oke{
+    background: linear-gradient(180deg, #FFFFFF 50%, #DCDCDC 100%);
+border: 0.5px solid #535353;
+border-radius: 2px;
+}
