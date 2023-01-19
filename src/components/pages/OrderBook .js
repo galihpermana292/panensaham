@@ -166,12 +166,13 @@ let tvScriptLoadingPromise;
                 {/* Trading view */}
                 <div className="border  rt-container-center ml-3 mr-3 ">
                     {/* <img src={traddingView} width={500}></img> */}
-                    <div className='tradingview-widget-container'>
-      <div id='tradingview_fc40e' />
-      <div className="tradingview-widget-copyright">
-        <a href="https://www.tradingview.com/symbols/NASDAQ-AAPL/" rel="noopener" target="_blank"><span className="blue-text">AAPL stock chart</span></a> by TradingView
-      </div>
-    </div>
+
+                        <div className='tradingview-widget-container '  >
+                            <div className='tradeview'id='tradingview_fc40e' />
+                           
+                        </div>
+            
+                   
                     <div className="d-flex border justify-content-between mt-2 ">
                         <div className={togglebuyOrder === 'buy/sell' ? "buy_amend_title p-1 font-weight-bold text-warning bg-dark" : "buy_amend_title p-1"}
                         onClick={() => togglebuyTab("buy/sell")}> BUY / SELL ORDER</div>

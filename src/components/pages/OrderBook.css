@@ -47,6 +47,10 @@ align-items: center;
 color: #432A19;
 
 }
+.tradeview{
+    height: 290px;
+    width: 550px;
+}
 .table{
     width: 320px;
 }

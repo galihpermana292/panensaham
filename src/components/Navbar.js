@@ -45,7 +45,9 @@ const Navbar = () => {
                             className={({ isActive }) => (isActive ? 'nav-active' : '')}>Order Book</NavLink></li>
                             <li><NavLink exact  to="/Quotes" 
                                 className={({ isActive }) => (isActive ? 'nav-active' : '')}>Quotes</NavLink></li>
+                            
                             <li>
+                                
                                 <a href='#'>Tool Advanced</a>
                                 <span className='arrow toolAdvanced'><BiCaretDown/></span>
                                 <ul className='tool-submenu submenu'>
@@ -53,7 +55,8 @@ const Navbar = () => {
                                     <li><a href='#'>Fitur Advanced</a></li>
                                 </ul>
                             </li>
-                            <li><a href='#'>Smart Order</a></li>
+                            <li><NavLink exact  to="/Smart-order" 
+                                className={({ isActive }) => (isActive ? 'nav-active' : '')}>Smart Order</NavLink></li>
                             <li><a href='#'>Account Info</a></li>
                             <li><a href='#'>Fund Withdrawl</a></li>
                         </ul>

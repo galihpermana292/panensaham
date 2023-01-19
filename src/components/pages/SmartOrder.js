@@ -1,4 +1,5 @@
 import './OrderBook.css'
+import './SmartOrder.css'
 import { GrNext,GrPrevious} from "react-icons/gr";
 import { IoMdArrowDropup } from "react-icons/io";
 import {runningTrade} from "../dummy/runningTrade"
@@ -14,7 +15,7 @@ import Setruningtrade from '../popup/Setruningtrade';
 import HargaBidOffer from '../popup/HargaBidOffer';
 import React, { useEffect, useRef } from 'react';
 
-function Quotes() {
+function SmartOrder() {
     
     const settings = {
         infinite:false,
@@ -45,7 +46,7 @@ function Quotes() {
        }
 
         // state for tab buy/sell and ammend/withdraw
-        const [togglebuyOrder, setToggleBuyorder] = useState("buy/sell");
+        const [togglebuyOrder, setToggleBuyorder] = useState("auto-buy");
         const togglebuyTab = (index) => {
             setToggleBuyorder(index)
         }
@@ -174,113 +175,69 @@ let tvScriptLoadingPromise;
             
                    
                     <div className="d-flex border justify-content-between mt-2 ">
-                        <div className={togglebuyOrder === 'buy/sell' ? "buy_amend_title p-1 font-weight-bold text-warning bg-dark" : "buy_amend_title p-1"}
-                        onClick={() => togglebuyTab("buy/sell")}> BUY / SELL ORDER</div>
-                        <div className={togglebuyOrder === 'ammend/withdraw' ? "buy_amend_title p-1 font-weight-bold text-warning bg-dark" : "buy_amend_title p-1"}
-                        onClick={() => togglebuyTab("ammend/withdraw")}> AMEND / WITHDRAW ORDER</div>
+                        <div className={togglebuyOrder === 'auto-buy' ? "buy_amend_title p-1 font-weight-bold text-warning bg-dark" : "buy_amend_title p-1"}
+                        onClick={() => togglebuyTab("auto-buy")}> AUTO BUY</div>
+                        <div className={togglebuyOrder === 'auto-sell' ? "buy_amend_title p-1 font-weight-bold text-warning bg-dark" : "buy_amend_title p-1"}
+                        onClick={() => togglebuyTab("auto-sell")}> AUTO SELL</div>
                         <div className="buy_amend_title p-1"> ID# <input className="id-pin-input p-1" type="text"></input></div>
                         <div className="buy_amend_title p-1"> PIN <input className="id-pin-input p-1" type="password"></input></div>
                     </div>
-                    {/* Buy /Seller */}
+                    {/* Auto Buy */}
                     <div style={{background:"#F4F4F4"}} 
-                    className={togglebuyOrder === 'buy/sell' ? '' : 'd-none'}>
+                    className={togglebuyOrder === 'auto-buy' ? '' : 'd-none'}>
                     <div className="mt-2 p-3  " >
                         <div className="d-lg-flex justify-content-around  ">
                             <div className="subtitle-order">
-                                <div className="d-flex mb-1">
-                                    <div className="width-subtitle">Market</div>
-                                    <div>
-                                        <select className="border rounded input-order" >
-                                            <option value="1">Regular</option>
-                                            <option value="2">Right</option>
-                                            <option value="3">Warrant</option>
-                                            <option value="3">Mutual/Fund</option>
-                                        </select>
-                                    </div> 
-                                </div>
-                                <div>
-                                    <div className="d-flex mb-1">
-                                        <div className="width-subtitle">
-                                            Code 
-                                        </div>
-                                        <div className="">
-                                            <input type="text" placeholder="BBRI" className="input-order p-1"></input>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="d-flex mb-1">
-                                        <div className="width-subtitle">
-                                            Price 
-                                        </div>
-                                        <div className="">
-                                            <input type="text" placeholder="0" className="text-right input-order p-1"></input>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div>
+                                <input type="checkbox"  value="Lp>=" /><span className="subtitle-order pl-1 mr-3" >Last Price &gt;=</span>
+                                <input type="text" className='input-text'/>Rp
+                            </div>
+                            <div>
+                                <input type="checkbox"  value="Lp<=" /><span className="subtitle-order pl-1 mr-3">Last Price &lt;=</span>
+                                <input type="text" className='input-text'/>Rp
+                            </div>
+                            <div>
+                                <input type="checkbox"  value="Buyifdrop" /><span className="subtitle-order pl-1 mr-4">Buy if drop</span>
+                                <input type="text" className='small-input '/>% Of Tracking Price
+                            </div>
                             </div>
                             <div className="subtitle-order">
                                 <div className="d-flex mb-1">
-                                        <div className="width-subtitle">
-                                            Auto 
+                                        <div className="width-subtitles">
+                                            Order Price
                                         </div>
                                         <div className="">
-                                            <input type="text" placeholder="Last Price" className="input-order p-1"></input>
+                                            <input type="radio" className="radio-order p-1 " ></input> select
+                                            <input type="radio" className="radio-order p-1 ml-2"></input> input
                                         </div>
                                 </div>
                                 <div>
                                     <div className="d-flex mb-1">
-                                        <div className="width-subtitle">
-                                            Qty Lot 
+                                    <div className="width-subtitles">
+                                            Last Price
                                         </div>
                                         <div className="">
-                                            <input type="text" placeholder="0" className="text-right input-order p-1"></input>
+                                        <select class="form-select border rounded " >
+                                            <option selected>0 Thick</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div>
                                     <div className="d-flex">
-                                        <div className="width-subtitle ">
-                                            Total 
+                                    <div className="width-subtitles">
+                                            Order Qty
                                         </div>
                                         <div className="">
-                                            <input type="text" placeholder="0" className="text-right input-order p-1"></input>
+                                            <input type="text" className='input-text'/>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="subtitle-order">
-                                <div className="d-flex mb-1">
-                                    <div className="border p-1  pl-3 pr-3 width-title">Type</div>
-                                    <div>
-                                        <select className="border p-1 select-tbh subtitle-order" >
-                                            <option value="1" className="">Day</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
-                                        </select>
-                                    </div> 
-                                </div>
-                                <div className="d-flex mb-1">
-                                    <div className="border p-1  pl-3 pr-3 width-title">Board</div>
-                                    <div>
-                                    <select className="border p-1 select-tbh subtitle-order " >
-                                            <option value="1" className="">Day</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
-                                        </select>
-                                    </div> 
-                                </div>
-                                <div className="d-flex mb-1">
-                                    <div className="border p-1 pl-3 pr-3 width-title">Haircut</div>
-                                    <div>
-                                        <select className="border p-1 select-tbh subtitle-order" >
-                                            <option value="1" className="">Day</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
-                                        </select>
-                                    </div> 
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
                      <div className="d-lg-flex justify-content-between pl-2">
@@ -354,9 +311,9 @@ let tvScriptLoadingPromise;
                     </div>
                     </div>
 
-                    {/* Amend/withdraw */}
+                    {/* auto-sell */}
                     <div style={{background:"#F4F4F4"}} 
-                    className={togglebuyOrder === 'ammend/withdraw' ? '' : 'd-none'}>
+                    className={togglebuyOrder === 'auto-sell' ? '' : 'd-none'}>
                     <div className="mt-2 p-3  " >
                         <div className="d-lg-flex justify-content-around  ">
                             <div className="subtitle-order">
@@ -1099,4 +1056,4 @@ let tvScriptLoadingPromise;
     );
 }
 
-export default Quotes;
+export default SmartOrder;
