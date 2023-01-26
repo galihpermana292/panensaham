@@ -1,0 +1,48 @@
+.input-text{
+    width: 120px;
+height: 20px;
+left: 547px;
+top: 540px;
+}
+
+.small-input{
+    width: 54px;
+height: 20px;
+left: 547px;
+top: 588px;
+}
+
+.width-subtitles{
+    width: 67px;
+height: 18px;
+left: 801px;
+top: 542px;
+
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 18px;
+}
+
+.radio-order{
+    width: 16px;
+    height: 16px;
+    left: 891px;
+    top: 543px;
+
+    background: #FFFFFF;
+    border: 0.5px solid #535353;
+}
+
+.form-last{
+    position: absolute;
+width: 90px;
+height: 20px;
+left: 891px;
+top: 564px;
+
+background: #FFFFFF;
+border: 0.5px solid #535353;
+
+}
