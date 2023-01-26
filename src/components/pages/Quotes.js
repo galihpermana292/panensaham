@@ -1,16 +1,9 @@
 import './OrderBook.css';
-import { GrNext, GrPrevious } from 'react-icons/gr';
-import { IoMdArrowDropup } from 'react-icons/io';
-import { runningTrade } from '../dummy/runningTrade';
-import { stockPrice } from '../dummy/stockPrice';
+
 import { stockDown } from '../dummy/stockDown';
-import { stockInfo } from '../dummy/stockInfo';
-import { marketNews } from '../dummy/marketNews';
-import traddingView from '../../assets/tradingView.png';
+
 import { useState } from 'react';
-import { SlKey } from 'react-icons/sl';
 import { FiSearch } from 'react-icons/fi';
-import Setruningtrade from '../popup/Setruningtrade';
 import HargaBidOffer from '../popup/HargaBidOffer';
 import React, { useEffect, useRef } from 'react';
 import StockPrice from '../shared/StockPrice';
@@ -19,15 +12,15 @@ import marketInfo from '../../api/MarketInfo';
 function Quotes() {
 	// data quotes
 	const [dataLabel, setDataLabel] = useState([]);
-	const [activeQuote, setActiveQuote] = useState('-');
-	const [stockData, setStockData] = useState([]);
+	const [activeQuote, setActiveQuote] = useState({ satu: [] });
+	const [stockData, setStockData] = useState({ satu: [] });
 
 	// orderbook
-	const [orderBook, setOrderBook] = useState([]);
-	const [sumBook, setSumBook] = useState({ bidSum: 0, offSum: 0 });
+	const [orderBook, setOrderBook] = useState({ satu: [] });
+	const [sumBook, setSumBook] = useState({ satu: { bidSum: 0, offSum: 0 } });
 
 	// tradebook
-	const [tradeBook, setTradeBook] = useState([]);
+	const [tradeBook, setTradeBook] = useState({ satu: [] });
 
 	// state for tab stock done and stock info
 	const [toggleStock, setToggleStock] = useState('stockdone');
@@ -75,9 +68,12 @@ function Quotes() {
 	};
 
 	//get select box
-	const getSelectedQuotes = async (val = 'AALI') => {
+	const getSelectedQuotes = async (val = 'AALI', from) => {
 		const activeLabel = dataLabel?.filter((data) => data.label === val);
-		setActiveQuote(activeLabel[0].labelName);
+		setActiveQuote((activeQuote) => ({
+			...activeQuote,
+			[from]: activeLabel[0].labelName,
+		}));
 
 		const {
 			data: { quotes },
@@ -96,11 +92,14 @@ function Quotes() {
 		let offLotSum = 0;
 		orderbook.forEach((data) => (offLotSum += data[4]));
 
-		setSumBook({ bidSum: bidLotSum, offSum: offLotSum });
+		setSumBook((sumBook) => ({
+			...sumBook,
+			[from]: { bidSum: bidLotSum, offSum: offLotSum },
+		}));
 
-		setOrderBook(orderbook);
-		setStockData(quotes);
-		setTradeBook(tradebook);
+		setOrderBook((orderBook) => ({ ...orderBook, [from]: orderbook }));
+		setStockData((stockData) => ({ ...stockData, [from]: quotes }));
+		setTradeBook((tradeBook) => ({ ...tradeBook, [from]: tradebook }));
 	};
 
 	useEffect(() => {
@@ -162,40 +161,58 @@ function Quotes() {
 			<div className="up-container d-lg-flex">
 				{/* Running Trade */}
 				<div className=" rt-container-left">
-					{[1, 2, 3].map((item) => (
-						<div key={item}>
+					{['satu', 'dua', 'tiga'].map((item) => (
+						<div key={item} className="mb-2">
 							<StockPrice
-								stockData={stockData}
-								orderBook={orderBook}
-								sumBook={sumBook}
+								stockData={
+									Object.keys(stockData).length === 0 ? [] : stockData[item]
+								}
+								orderBook={
+									Object.keys(stockData).length === 0 ? [] : orderBook[item]
+								}
+								tradeBook={
+									Object.keys(stockData).length === 0 ? [] : tradeBook[item]
+								}
+								sumBook={
+									Object.keys(stockData).length === 0 ? {} : sumBook[item]
+								}
+								activeQuote={activeQuote[item]}
 								toggleStockTab={toggleStockTab}
 								getSelectedQuotes={getSelectedQuotes}
-								tradeBook={tradeBook}
 								dataLabel={dataLabel}
-								activeQuote={activeQuote}
 								toggleStock={toggleStock}
 								stockDown={stockDown}
 								showStockDone={false}
+								from={item}
 							/>
 						</div>
 					))}
 				</div>
 
 				<div className=" rt-container-left ">
-					{[1, 2, 3].map((item) => (
-						<div key={item}>
+					{['empat', 'lima', 'enam'].map((item) => (
+						<div key={item} className="mb-2 ml-1 mr-3">
 							<StockPrice
-								stockData={stockData}
-								orderBook={orderBook}
-								sumBook={sumBook}
+								stockData={
+									Object.keys(stockData).length === 0 ? [] : stockData[item]
+								}
+								orderBook={
+									Object.keys(stockData).length === 0 ? [] : orderBook[item]
+								}
+								tradeBook={
+									Object.keys(stockData).length === 0 ? [] : tradeBook[item]
+								}
+								sumBook={
+									Object.keys(stockData).length === 0 ? {} : sumBook[item]
+								}
+								activeQuote={activeQuote[item]}
 								toggleStockTab={toggleStockTab}
 								getSelectedQuotes={getSelectedQuotes}
-								tradeBook={tradeBook}
 								dataLabel={dataLabel}
-								activeQuote={activeQuote}
 								toggleStock={toggleStock}
 								stockDown={stockDown}
 								showStockDone={false}
+								from={item}
 							/>
 						</div>
 					))}

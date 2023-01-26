@@ -1,5 +1,4 @@
 import './OrderBook.css';
-import { GrNext, GrPrevious } from 'react-icons/gr';
 import { runningTrade } from '../dummy/runningTrade';
 import { stockDown } from '../dummy/stockDown';
 import { marketNews } from '../dummy/marketNews';

@@ -2,7 +2,7 @@ import { IoMdArrowDropup } from 'react-icons/io';
 const StockPrice = ({
 	stockData = [],
 	orderBook = [],
-	sumBook,
+	sumBook = { bidSum: 0, offSum: 0 },
 	toggleStockTab,
 	getSelectedQuotes,
 	dataLabel,
@@ -11,12 +11,10 @@ const StockPrice = ({
 	stockDown,
 	tradeBook,
 	showStockDone = true,
+	from = undefined,
 }) => {
 	return (
-		<div
-			className="rt-container-left border"
-      style={{ height: 'max-content' }}
-			>
+		<div className="rt-container-left border" style={{ height: 'max-content' }}>
 			{/* Stock Price */}
 			<div className="border">
 				<div className="d-flex bg-warning">
@@ -41,7 +39,11 @@ const StockPrice = ({
 					<div className="border sp-sub-title">
 						<select
 							className="p-1 select-tbh-table subtitle-order-table"
-							onChange={(e) => getSelectedQuotes(e.target.value)}>
+							onChange={(e) =>
+								from
+									? getSelectedQuotes(e.target.value, from)
+									: getSelectedQuotes(e.target.value)
+							}>
 							<option value="1">Quotes</option>
 							{dataLabel.map((data, idx) => (
 								<option value={data.label} key={idx}>
