@@ -1,174 +1,174 @@
-    *{
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: sans-serif;
-    }
-
-.navv{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 70px;
-    background: #fff;
-    border-bottom: 5px solid rgb(77, 77, 33);
-
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: sans-serif;
 }
 
-.nav-css .nav-menuu{
-    display: none;
+.navv {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 70px;
+	background: #fff;
+	border-bottom: 5px solid rgb(77, 77, 33);
 }
 
-.navv .nav-css{
-    height: 100%;
-    max-width: 1250px;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 50px;
+.nav-css .nav-menuu {
+	display: none;
 }
 
-.navv .nav-css .nav-right{
-    height: 100%;
-    max-width: 1250px;
-    margin: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 50px;
+.navv .nav-css {
+	height: 100%;
+	max-width: 1250px;
+	margin: auto;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 50px;
 }
 
-.navv .nav-css .nav-links , .navv .nav-css .nav-linkss{
-    height: 100%;
-    line-height: 70px;
-    font-size: 12px;
+.navv .nav-css .nav-right {
+	height: 100%;
+	max-width: 1250px;
+	margin: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px 50px;
 }
 
-.group-links{
-    height: 100%;
-    line-height: 70px;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    display: flex;
-    padding: 20px;
+.navv .nav-css .nav-links,
+.navv .nav-css .nav-linkss {
+	height: 100%;
+	line-height: 70px;
+	font-size: 12px;
+}
 
+.group-links {
+	height: 100%;
+	line-height: 70px;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	display: flex;
+	padding: 20px;
 }
 .navv .nav-css .nav-links .links,
-.navv .nav-css .nav-linkss .links{
-    display: flex; 
+.navv .nav-css .nav-linkss .links {
+	display: flex;
 }
 
 .navv .nav-css .nav-links .links li,
-.navv .nav-css .nav-linkss .links li{
-    position: relative;
-    display: flex;
-    align-items: center;
-    list-style: none;
-    padding: 0 14px;
+.navv .nav-css .nav-linkss .links li {
+	position: relative;
+	display: flex;
+	align-items: center;
+	list-style: none;
+	padding: 0 14px;
 }
 
-.navv .nav-css .nav-links .links li a,.group-links li a,
-.navv .nav-css .nav-linkss .links li a{
-    color: #000000;
-    text-decoration: none;
+.navv .nav-css .nav-links .links li a,
+.group-links li a,
+.navv .nav-css .nav-linkss .links li a {
+	color: #000000;
+	text-decoration: none;
 }
 
 .navv .nav-css .nav-links .links li .arrow,
-.navv .nav-css .nav-linkss .links li .arrow{
-    
-    height: 100%;
-    width: 22px;
-    text-align: center;
-    color: #000000;
-    line-height: 70px;
-    transition: all 0.3s ease;
+.navv .nav-css .nav-linkss .links li .arrow {
+	height: 100%;
+	width: 22px;
+	text-align: center;
+	color: #000000;
+	line-height: 70px;
+	transition: all 0.3s ease;
 }
 .navv .nav-css .nav-linkss .links li:hover a,
-.navv .nav-css .nav-links .links li:hover a{
-    color: #EAA623;
-    cursor: pointer;
+.navv .nav-css .nav-links .links li:hover a {
+	color: #eaa623;
+	cursor: pointer;
 }
 
-.navv .nav-css .nav-linkss .links li  .nav-active,
-.navv .nav-css .nav-links .links li .nav-active{
-color: #EAA623;
-  font-weight: 700px;
+.navv .nav-css .nav-linkss .links li .nav-active,
+.navv .nav-css .nav-links .links li .nav-active {
+	color: #eaa623;
+	font-weight: 700px;
 }
 
-.navv .nav-css .nav-links .links li:hover .toolAdvanced{
-    transform: rotate(180deg);
+.navv .nav-css .nav-links .links li:hover .toolAdvanced {
+	transform: rotate(180deg);
 }
-.nav-css .nav-links .links .submenu , .nav-css .nav-linkss .links .submenu,.group-links .submenu{
-    position: absolute;
-    top: 70px;
-    left: 0;
-    background: #fff;
-    line-height: 40px;
-    border-radius: 0 0 4px 4px;
+.nav-css .nav-links .links .submenu,
+.nav-css .nav-linkss .links .submenu,
+.group-links .submenu {
+	position: absolute;
+	top: 70px;
+	left: 0;
+	background: #fff;
+	line-height: 40px;
+	border-radius: 0 0 4px 4px;
 }
-.nav-active{
-    color: #EAA623    ;
+.nav-active {
+	color: #eaa623;
 }
-.nav-css .nav-links .links .submenu li , .group-links .submenu li,.nav-css .nav-linkss .links .submenu li{
-    padding: 0 22px;
-    border-bottom: 1px solid rgba(255,255,255,0.3);
-    display: none ;
-
+.nav-css .nav-links .links .submenu li,
+.group-links .submenu li,
+.nav-css .nav-linkss .links .submenu li {
+	padding: 0 22px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+	display: none;
 }
-.nav-css .nav-links .links .submenu li a , .group-links .submenu li a,
+.nav-css .nav-links .links .submenu li a,
+.group-links .submenu li a,
 .nav-css .nav-linkss .links .submenu li a {
-    font-size: 12px;
-    font: 500;
+	font-size: 12px;
+	font: 500;
 }
 
-.nav-css .nav-links .links li:hover .tool-submenu li, .group-links:hover .profile-submenu li,.nav-css .nav-linkss .links li:hover .tool-submenu li{ 
-    display: block;
-
+.nav-css .nav-links .links li:hover .tool-submenu li,
+.group-links:hover .profile-submenu li,
+.nav-css .nav-linkss .links li:hover .tool-submenu li {
+	display: block;
 }
 
-.nav-css .nav-linkss .logo-side{
-    display: none;
+.nav-css .nav-linkss .logo-side {
+	display: none;
 }
 
+@media (max-width: 1250px) {
+	.navv .nav-css .nav-links {
+		display: block;
+		position: fixed;
+		top: 0;
+		left: -100%;
+		max-width: 270px;
+		background-color: #fff;
+	}
+	.navv .nav-css .nav-linkss {
+		display: block;
+		position: fixed;
+		top: 0;
+		left: 0;
 
+		max-width: 300px;
+		background-color: #fff;
+	}
+	.navv .nav-css .nav-links .links,
+	.navv .nav-css .nav-linkss .links {
+		display: block;
+	}
 
-@media (max-width:1250px){
-    .navv .nav-css .nav-links{
-        display: block;
-        position: fixed;
-        top: 0;
-        left: -100%;
-        max-width: 270px;
-        background-color: #fff;
-    }
-    .navv .nav-css .nav-linkss{
-        display: block;
-        position: fixed;
-        top: 0;
-        left: 0;
-    
-        max-width: 300px;
-        background-color: #fff;
-    }
-    .navv .nav-css .nav-links .links,
-    .navv .nav-css .nav-linkss .links{
-        display: block;
-    }
-
-    .nav-css .nav-menuu{
-        color: #000000;
-        font-size: 25px;
-        font-weight: 500;
-        display: block;
-    }
-    .navv .nav-css .nav-linkss .nav-menuu .close{
-        margin-left: 15px;
-        padding: 0 15px;
-        font-size: 30px;
-    }
-    
-  
+	.nav-css .nav-menuu {
+		color: #000000;
+		font-size: 25px;
+		font-weight: 500;
+		display: block;
+	}
+	.navv .nav-css .nav-linkss .nav-menuu .close {
+		margin-left: 15px;
+		padding: 0 15px;
+		font-size: 30px;
+	}
 }
