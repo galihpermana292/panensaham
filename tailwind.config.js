@@ -5,6 +5,7 @@ module.exports = {
     extend: {},
     fontSize: {
       mini: "0.54rem",
+      medium: "0.90rem",
     },
   },
   plugins: [],

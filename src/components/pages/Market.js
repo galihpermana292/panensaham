@@ -40,9 +40,14 @@ function Market() {
     data: [],
   });
   const [dataTable, setDataTable] = useState([]);
+  const [Pagination, setPagination] = useState({
+    button: 0,
+    current: 1,
+  });
 
   const onLoadScriptRef = useRef();
   let tvScriptLoadingPromise;
+
   useEffect(() => {
     onLoadScriptRef.current = createWidget;
 
@@ -103,24 +108,39 @@ function Market() {
             status: val.data.status,
             dataQuotes: val.data.quotes,
           });
-          setDataTable(val.data.quotes.splice(0, 10));
-        })
-        .catch((err) => console.log(err));
+          setDataTable(val.data.quotes);
+          setPagination({
+            ...Pagination,
+            button: Math.ceil(val.data.quotes.length / 10),
+          });
 
-      await axios
-        .get("http://103.102.177.243:20222/api/v1/quotes", {
-          params: { code: "COMPOSITE" },
-          headers: {
-            Authorization: `Bearer ${val.data.data.access_token}`,
-          },
-        })
-        .then((Composite) => {
+          const composite = val.data.quotes.filter((comp) =>
+            comp.includes("COMPOSITE")
+          );
+          // console.log(composite, "jaja");
           setDefaultData({
-            status: Composite.data.status,
-            data: Composite.data.quotes,
+            status: true,
+            data: composite[0],
           });
         })
         .catch((err) => console.log(err));
+
+      // await axios
+      //   .get("http://103.102.177.243:20222/api/v1/quotes", {
+      //     params: { code: "COMPOSITE" },
+      //     headers: {
+      //       Authorization: `Bearer ${val.data.data.access_token}`,
+      //     },
+      //   })
+      //   .then((Composite) => {
+      //     // setDefaultData({
+      //     //   status: Composite.data.status,
+      //     //   data: Composite.data.quotes,
+      //     // });
+
+      //     console.log(Composite.data.quotes);
+      //   })
+      //   .catch((err) => console.log(err));
 
       await axios
         .get("http://103.102.177.243:20222/api/v1/indices", {
@@ -138,7 +158,14 @@ function Market() {
     });
   }, []);
 
-  // console.log(dataTable, "aa");
+  function PaginationTable(dataArray, indexes) {
+    const end = indexes * 10;
+    const start = end - 10;
+    return dataArray.slice(start, end);
+  }
+
+  // console.log(Pagination, dataTable.length);
+
   return (
     <div className="container mt-5 pt-5 ">
       <h4 className="text-left text-title font-weight-bold">Index</h4>
@@ -158,7 +185,15 @@ function Market() {
                     <p className="font-bold">{val[1]}</p>
                     <p>{val[13]}</p>
                   </div>
-                  <Charts />
+                  <Charts
+                    color={
+                      val[20] < 0
+                        ? "#ff1100"
+                        : val[20] === 0
+                        ? "#d5e000"
+                        : "#5fe650"
+                    }
+                  />
                   <div className="flex w-full px-2 font-bold">
                     <p
                       className={`${
@@ -254,8 +289,12 @@ function Market() {
                   })
                   .then((val) => {
                     if (e.target.value === "*") {
-                      setDataTable(data.dataQuotes.splice(0, 10));
-                      console.log(data.dataQuotes);
+                      setDataTable(data.dataQuotes);
+                      setPagination({
+                        current: 1,
+                        button: Math.ceil(data.dataQuotes.length / 10),
+                      });
+                      // console.log(data.dataQuotes);
                     } else {
                       let filter = [];
                       data.dataQuotes.map((all) => {
@@ -266,8 +305,11 @@ function Market() {
                           }
                         });
                       });
-
-                      setDataTable(filter.splice(0, 10));
+                      setDataTable(filter);
+                      setPagination({
+                        current: 1,
+                        button: Math.ceil(filter.length / 10),
+                      });
                     }
                   })
                   .catch((err) => console.log(err));
@@ -331,41 +373,82 @@ function Market() {
                     <td>{item.value} B</td>
                   </tr>
                 ))} */}
-                {dataTable.map((val, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>{val[0]}</td>
-                      <td>{val[13]}</td>
-                      <td
-                        className={`${
-                          val[19] < 0
-                            ? "text-red-600"
-                            : val[19] === 0
-                            ? "text-black"
-                            : "text-green-600"
-                        }`}
-                      >
-                        {val[19]}
-                      </td>
-                      <td
-                        className={`${
-                          val[20] < 0
-                            ? "text-red-600"
-                            : val[20] === 0
-                            ? "text-black"
-                            : "text-green-600"
-                        }`}
-                      >
-                        {val[20]}%
-                      </td>
-                      <td>{val[23]}</td>
-                      <td>{val[12]}</td>
-                      <td>{val[22]}</td>
-                    </tr>
-                  );
-                })}
+                {PaginationTable(dataTable, Pagination.current).map(
+                  (val, index) => {
+                    return (
+                      <tr key={index}>
+                        <td>{val[0]}</td>
+                        <td>
+                          {new Intl.NumberFormat("en-DE").format(val[13])}
+                        </td>
+                        <td
+                          className={`${
+                            val[19] < 0
+                              ? "text-red-600"
+                              : val[19] === 0
+                              ? "text-black"
+                              : "text-green-600"
+                          }`}
+                        >
+                          {val[19]}
+                        </td>
+                        <td
+                          className={`${
+                            val[20] < 0
+                              ? "text-red-600"
+                              : val[20] === 0
+                              ? "text-black"
+                              : "text-green-600"
+                          }`}
+                        >
+                          {val[20]}%
+                        </td>
+                        <td>{val[23]}</td>
+                        <td>{val[12]}</td>
+                        <td>
+                          {new Intl.NumberFormat("en-DE").format(val[22])}
+                        </td>
+                      </tr>
+                    );
+                  }
+                )}
               </tbody>
             </table>
+          </div>
+          <div className="flex  justify-between text-medium">
+            <p>on Page {Pagination.current}</p>
+
+            <Slider
+              initialSlide={1}
+              slidesToScroll={5}
+              infinite={false}
+              className={"text-center w-48"}
+              slidesToShow={5}
+              swipeToSlide={true}
+              nextArrow={<GrNext />}
+              prevArrow={<GrPrevious />}
+            >
+              {[...Array(Pagination.button).keys()].map((val, index) => {
+                return (
+                  <p
+                    onClick={() => {
+                      setPagination({
+                        ...Pagination,
+                        current: val + 1,
+                      });
+                    }}
+                    className={`${
+                      Pagination.current === val + 1
+                        ? "bg-green-400"
+                        : "bg-white"
+                    } rounded-lg cursor-pointer`}
+                    key={val + 1}
+                  >
+                    {val + 1}
+                  </p>
+                );
+              })}
+            </Slider>
           </div>
         </div>
       )}
