@@ -1,21 +1,21 @@
-import axios from 'axios';
+import axios from "axios";
 
 const createAPI = (
-	baseURL = `${process.env.REACT_APP_API_URL}/api/v1`,
-	config = {}
+  baseURL = `${process.env.REACT_APP_API_URL}/api/v1`,
+  config = {}
 ) => {
-	const axiosInstance = axios.create({
-		baseURL,
-		withCredentials: false,
-		headers: {
-			Accept: 'application/json',
-			// 'Content-Type': 'application/json',
-		},
-		...config,
-	});
+  const axiosInstance = axios.create({
+    baseURL,
+    withCredentials: false,
+    headers: {
+      Accept: "application/json",
+      // 'Content-Type': 'application/json',
+    },
+    ...config,
+  });
 
-	// setup axios.intercept
-	return axiosInstance;
+  // setup axios.intercept
+  return axiosInstance;
 };
 
 const api = createAPI();
