@@ -17,6 +17,7 @@ function SmartOrder() {
 	const [dataLabel, setDataLabel] = useState([]);
 	const [activeQuote, setActiveQuote] = useState('-');
 	const [stockData, setStockData] = useState([]);
+	const [activeQuotesAcronym, setActiveQuotesAcronym] = useState('TLKM');
 
 	// orderbook
 	const [orderBook, setOrderBook] = useState([]);
@@ -66,6 +67,7 @@ function SmartOrder() {
 		const newData = quotes.map((data) => ({
 			label: data[0],
 			labelName: data[1],
+			value: data[0],
 		}));
 		setDataLabel(newData);
 	};
@@ -74,6 +76,7 @@ function SmartOrder() {
 	const getSelectedQuotes = async (val = 'AALI') => {
 		const activeLabel = dataLabel?.filter((data) => data.label === val);
 		setActiveQuote(activeLabel[0].labelName);
+		setActiveQuotesAcronym(val);
 
 		const {
 			data: { quotes },
@@ -137,7 +140,7 @@ function SmartOrder() {
 			) {
 				new window.TradingView.widget({
 					autosize: true,
-					symbol: 'NASDAQ:AAPL',
+					symbol: activeQuotesAcronym,
 					interval: 'D',
 					timezone: 'Etc/UTC',
 					theme: 'light',
@@ -152,7 +155,7 @@ function SmartOrder() {
 				});
 			}
 		}
-	}, []);
+	}, [activeQuotesAcronym]);
 	return (
 		<div className="big mt-5 pt-5 ">
 			<div className="up-container d-lg-flex">

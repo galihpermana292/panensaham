@@ -1,4 +1,5 @@
 import { IoMdArrowDropup } from 'react-icons/io';
+import SelectSearch from '../SelectSearch';
 const StockPrice = ({
 	stockData = [],
 	orderBook = [],
@@ -37,7 +38,15 @@ const StockPrice = ({
 				<div className="d-flex">
 					{/* <div className="border p-2 pl-3 pr-3 sp-sub-title">BBRI</div> */}
 					<div className="border sp-sub-title">
-						<select
+						<SelectSearch
+							placeholder="Quotes"
+              optionFilterProp="children"
+							onChange={(val) =>
+								from ? getSelectedQuotes(val, from) : getSelectedQuotes(val)
+							}
+							options={dataLabel}
+						/>
+						{/* <select
 							className="p-1 select-tbh-table subtitle-order-table"
 							onChange={(e) =>
 								from
@@ -50,7 +59,7 @@ const StockPrice = ({
 									{data.label}
 								</option>
 							))}
-						</select>
+						</select> */}
 					</div>
 					<div className="border p-2 sp-sub-title pl-5 pr-5 label-name">
 						{activeQuote}

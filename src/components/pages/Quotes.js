@@ -63,7 +63,9 @@ function Quotes() {
 		const newData = quotes.map((data) => ({
 			label: data[0],
 			labelName: data[1],
+			value: data[0],
 		}));
+		console.log(quotes);
 		setDataLabel(newData);
 	};
 
