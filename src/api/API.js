@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = process.env.REACT_APP_API_MODE;
+// const API = process.env.REACT_APP_API_MODE;
 export const Register = async (res) => {
   await axios({
     method: "post",

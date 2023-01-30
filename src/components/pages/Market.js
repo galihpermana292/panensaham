@@ -16,6 +16,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import axios from "axios";
 import { useState } from "react";
 import Charts from "../Charts";
+import AutoCompleteInput from "../componentmarket/AutoCompleteInput";
 
 function Market() {
   const settings = {
@@ -119,28 +120,11 @@ function Market() {
           );
           // console.log(composite, "jaja");
           setDefaultData({
-            status: true,
+            status: true,   
             data: composite[0],
           });
         })
         .catch((err) => console.log(err));
-
-      // await axios
-      //   .get("http://103.102.177.243:20222/api/v1/quotes", {
-      //     params: { code: "COMPOSITE" },
-      //     headers: {
-      //       Authorization: `Bearer ${val.data.data.access_token}`,
-      //     },
-      //   })
-      //   .then((Composite) => {
-      //     // setDefaultData({
-      //     //   status: Composite.data.status,
-      //     //   data: Composite.data.quotes,
-      //     // });
-
-      //     console.log(Composite.data.quotes);
-      //   })
-      //   .catch((err) => console.log(err));
 
       await axios
         .get("http://103.102.177.243:20222/api/v1/indices", {
@@ -275,12 +259,65 @@ function Market() {
             <h4 className="text-left text-title font-weight-bold">
               Ringkasan Saham
             </h4>
-            <select
-              className="form-select border rounded "
-              onChange={async (e) => {
+            {/* <div>
+              <select
+                className="form-select border rounded "
+                // onChange={async (e) => {
+                //   await axios
+                //   //   .get("http://103.102.177.243:20222/api/v1/constituents", {
+                //   //     params: { code: e.target.value },
+                //   //     headers: {
+                //   //       Authorization: `Bearer ${sessionStorage.getItem(
+                //   //         "access_token"
+                //   //       )}`,
+                //   //     },
+                //   //   })
+                //   //   .then((val) => {
+                //   //     if (e.target.value === "*") {
+                //   //       setDataTable(data.dataQuotes);
+                //   //       setPagination({
+                //   //         current: 1,
+                //   //         button: Math.ceil(data.dataQuotes.length / 10),
+                //   //       });
+                //   //       // console.log(data.dataQuotes);
+                //   //     } else {
+                //   //       let filter = [];
+                //   //       data.dataQuotes.map((all) => {
+                //   //         val.data.constituents.map((val) => {
+                //   //           if (all[0] === val) {
+                //   //             // console.log(all);
+                //   //             filter.push(all);
+                //   //           }
+                //   //         });
+                //   //       });
+                //   //       setDataTable(filter);
+                //   //       setPagination({
+                //   //         current: 1,
+                //   //         button: Math.ceil(filter.length / 10),
+                //   //       });
+                //   //     }
+                //   //   })
+                //   //   .catch((err) => console.log(err));
+                // }}
+              >
+                <option value={"*"} selected>
+                  All
+                </option>
+                {indices.data.map((val, index) => {
+                  return (
+                    <option key={index} value={val}>
+                      {val}
+                    </option>
+                  );
+                })}
+              </select>
+            </div> */}
+            <AutoCompleteInput
+              listIndices={indices.data}
+              onActon={async (e) => {
                 await axios
                   .get("http://103.102.177.243:20222/api/v1/constituents", {
-                    params: { code: e.target.value },
+                    params: { code: e },
                     headers: {
                       Authorization: `Bearer ${sessionStorage.getItem(
                         "access_token"
@@ -288,7 +325,7 @@ function Market() {
                     },
                   })
                   .then((val) => {
-                    if (e.target.value === "*") {
+                    if (e === "ALL") {
                       setDataTable(data.dataQuotes);
                       setPagination({
                         current: 1,
@@ -314,19 +351,7 @@ function Market() {
                   })
                   .catch((err) => console.log(err));
               }}
-            >
-              {/* <option selected>Pilih Index</option> */}
-              <option value={"*"} selected>
-                All
-              </option>
-              {indices.data.map((val, index) => {
-                return (
-                  <option key={index} value={val}>
-                    {val}
-                  </option>
-                );
-              })}
-            </select>
+            />
           </div>
           <div className="table-responsive">
             <table className="w-100 table  table-bordered ">
@@ -403,8 +428,12 @@ function Market() {
                         >
                           {val[20]}%
                         </td>
-                        <td>{val[23]}</td>
-                        <td>{val[12]}</td>
+                        <td>
+                          {new Intl.NumberFormat("en-DE").format(val[23])}
+                        </td>
+                        <td>
+                          {new Intl.NumberFormat("en-DE").format(val[12])}
+                        </td>
                         <td>
                           {new Intl.NumberFormat("en-DE").format(val[22])}
                         </td>
@@ -419,7 +448,7 @@ function Market() {
             <p>on Page {Pagination.current}</p>
 
             <Slider
-              initialSlide={1}
+              // initialSlide={1}
               slidesToScroll={5}
               infinite={false}
               className={"text-center w-48"}
